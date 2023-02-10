@@ -186,7 +186,7 @@ usersController.edit = async (req, res, next) => {
         if (!user) {
             return res.status(httpStatus.NOT_FOUND).json({message: "Can not find user"});
         }
-        user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
+        user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image city country blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
         return res.status(httpStatus.OK).json({
             data: user
         });
@@ -238,7 +238,7 @@ usersController.changePassword = async (req, res, next) => {
             {username: user.username, firstName: user.firstName, lastName: user.lastName, id: user._id},
             JWT_SECRET
         );
-        user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
+        user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image city country blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
         return res.status(httpStatus.OK).json({
             data: user,
             token: token
@@ -258,7 +258,7 @@ usersController.show = async (req, res, next) => {
             userId = req.userId;
         }
 
-        let user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
+        let user = await UserModel.findById(userId).select('phonenumber username gender birthday avatar cover_image city country blocked_inbox blocked_diary').populate('avatar').populate('cover_image');
         if (user == null) {
             return res.status(httpStatus.NOT_FOUND).json({message: "Can not find user"});
         }
